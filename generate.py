@@ -29,7 +29,7 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 
 # --- 3. Prepare the input image ---
 # Load your input image
-input_image = Image.open("path/to/your/user_image.jpg")
+input_image = Image.open("E:/Google Drive/Github/insoblok-ai/insoblok-ai-avatar/user_image.png")
 
 # --- 4. Pre-process the image for ControlNet ---
 # Initialize the Canny edge detector
@@ -43,7 +43,7 @@ control_image = canny_detector(input_image, low_threshold, high_threshold)
 control_image.save("canny_edges.png") # You can save this to see what the model "sees"
 
 # --- 5. Craft the Prompt ---
-# This is where you define the "Notion" style. Be descriptive!
+# This is where you define the "Avatar" style. Be descriptive!
 prompt = "Notion style avatar, minimalist, vector art, black and white, clean lines, simple, corporate headshot"
 negative_prompt = "ugly, disfigured, deformed, noisy, blurry, low quality, watermark, text"
 
@@ -57,5 +57,5 @@ generated_image = pipe(
 ).images[0]
 
 # --- 7. Save the output ---
-generated_image.save("notion_avatar.png")
-print("Avatar saved as notion_avatar.png")
+generated_image.save("insoblok_ai_avatar.png")
+print("Avatar saved as insoblok_ai_avatar.png")
