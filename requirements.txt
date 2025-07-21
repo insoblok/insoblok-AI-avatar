@@ -1,0 +1,11 @@
+torch
+torchvision
+diffusers
+transformers
+accelerate
+opencv-python-headless
+pillow
+controlnet_aux
+fastapi
+uvicorn[standard]
+python-multipart
