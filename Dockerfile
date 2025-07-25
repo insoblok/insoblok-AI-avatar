@@ -1,20 +1,27 @@
-# Use an official NVIDIA base image with PyTorch and CUDA pre-installed
-FROM nvidia/pytorch:2.0.1-cuda11.8-cudnn8-runtime-ubuntu22.04
+# Start from a BARE NVIDIA CUDA image, not a full PyTorch one.
+# This gives us a clean slate.
+FROM nvidia/cuda:12.1.1-runtime-ubuntu22.04
 
-# Set up a working directory
+# Set up the working environment
 WORKDIR /app
 
-# Copy the requirements file and install dependencies
-COPY requirements.txt .
-# Note: We don't specify the torch index-url here as the base image already has it.
-RUN pip install --no-cache-dir -r requirements.txt
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Copy the application code into the container
+# Install Python and pip from the OS package manager
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# Copy our requirements file
+COPY requirements.txt .
+
+# Install our pinned dependencies. This is now a clean install.
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
+
+# Copy the application code
 COPY ./main.py .
 
-# Expose the port the app runs on (FastAPI default is 8000)
+# Expose the port the app runs on
 EXPOSE 8000
 
-# Command to run the application using uvicorn
-# We use 0.0.0.0 to allow traffic from outside the container
+# Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

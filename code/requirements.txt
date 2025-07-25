@@ -1,0 +1,17 @@
+# Requirements for the AWS Native SageMaker method
+
+# Core ML/DL stack (torch is provided by the base container)
+diffusers==0.27.2
+transformers==4.41.2
+accelerate==0.32.1
+safetensors
+
+# FastAPI and Server
+fastapi
+uvicorn[standard]
+python-multipart
+
+# ControlNet and Image Processing
+controlnet_aux
+opencv-python-headless
+Pillow
